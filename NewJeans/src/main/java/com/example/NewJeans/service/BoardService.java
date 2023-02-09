@@ -55,7 +55,7 @@ public class BoardService {
     }
 
     //게시물 등록
-    public void create(final CreateBoardRequestDTO createRequestDTO, final Long idolId )
+    public Long create(final CreateBoardRequestDTO createRequestDTO, final Long idolId )
         throws RuntimeException
     {
 
@@ -65,6 +65,8 @@ public class BoardService {
         boardRepository.save(board);
         log.info("게시물이 등록되었습니다. 내용:{} 파일:{}",createRequestDTO.getBoardContent(),createRequestDTO.getBoardFile());
 
+
+        return idolId;
 
     }
 

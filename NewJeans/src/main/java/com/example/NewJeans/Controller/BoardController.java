@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -72,6 +73,7 @@ public class BoardController {
             //@AuthenticationPrincipal Long memId,
             @PathVariable("idol-id") Long idolId,
             @Validated @RequestBody CreateBoardRequestDTO requestDTO,
+            RedirectAttributes redirectAttributes,
             BindingResult result
 
     )
@@ -84,8 +86,9 @@ public class BoardController {
         }
 
         try {
-            boardService.create(requestDTO,idolId);
-            return "redirect:/"; //게시판 페이지
+            Long idol=boardService.create(requestDTO,idolId);
+            redirectAttributes.addAttribute("idol",idol);
+            return "redirect:/board/{idol}"; //게시판 페이지로 리다이렉트
 
         } catch (RuntimeException e) {
             log.error(e.getMessage());
