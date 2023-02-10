@@ -11,5 +11,5 @@ public class NewJeansApplication {
 	}
 
 
-	//branch test1
+	//임시
 }
