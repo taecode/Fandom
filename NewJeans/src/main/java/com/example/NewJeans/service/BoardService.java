@@ -50,6 +50,7 @@ public class BoardService {
                 .map(DetailBoardResponseDTO::new)
                 .collect(Collectors.toList());
 
+
         return ListBoardResponseDTO.builder()
                 .boards(dtoList)
                 .build();
@@ -60,8 +61,12 @@ public class BoardService {
     public Long create(final CreateBoardRequestDTO createRequestDTO, final Long idolId )
         throws RuntimeException
     {
+        Idol idol=new Idol();
+        idol.setIdolID(idolId);
+
         Board board=createRequestDTO.toEntity();
-        board.setIdol(idolId);  // 아이돌번호
+        board.setIdolID(idol);
+        board.setIdol(idolId);
         board.setMemNickName(board.getMemNickName()); //작성자 닉네임
         boardRepository.save(board);
         log.info("게시물이 등록되었습니다. 내용:{} 파일:{}",createRequestDTO.getBoardContent(),createRequestDTO.getBoardFile());

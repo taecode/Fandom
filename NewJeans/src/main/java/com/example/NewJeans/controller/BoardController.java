@@ -3,13 +3,17 @@ package com.example.NewJeans.controller;
 
 import com.example.NewJeans.dto.request.CreateBoardRequestDTO;
 import com.example.NewJeans.dto.request.ModifyBoardRequestDTO;
+import com.example.NewJeans.dto.response.DetailBoardResponseDTO;
 import com.example.NewJeans.dto.response.ListBoardResponseDTO;
+import com.example.NewJeans.entity.Idol;
+import com.example.NewJeans.repository.IdolRepository;
 import com.example.NewJeans.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,29 +31,33 @@ public class BoardController {
 
     private final BoardService boardService;
 
+
+
     //게시글 조회
     @GetMapping("/{idol-id}")   //아이돌 번호에 따라 페이징
     public String retrieveBoardList(
             Model model,
-            //@AuthenticationPrincipal Long memId,//인증된 회원
+            @AuthenticationPrincipal Long memId,//인증된 회원
             @PathVariable("idol-id") Long idolId,
             @PageableDefault(size = 10, sort = "boardID", direction = Sort.Direction.DESC) Pageable pageable
 
     )
     {
-        // log.info("/board/{} Get request!",idolId);
+
+        log.info("/board/{} Get request!",idolId);
         ListBoardResponseDTO listBoardResponseDTO = boardService.retrieve(idolId,pageable);
         model.addAttribute("ListBoardResponseDTO", listBoardResponseDTO);
-        //return "board/boardList";
-        return "boardSample";
+        model.addAttribute("IdolId",idolId);
+        return "board/boardList";
 
     }
 
     //게시글 작성 폼으로
-    @GetMapping("/{idol-id}/boardwrite")
+    @GetMapping("/{idol-id}/boardWrite")
     public String boardWrite() {return "board/boardWrite";}
 
-    //게시글 등록 요청  (파일 업로드 추가 필요)
+
+    //게시글 등록 요청    (파일 업로드 추가 필요)
     @PostMapping("/{idol-id}")
     public String createBoard(
             Model model,

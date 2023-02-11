@@ -79,6 +79,9 @@
         function inputTagClick() {
             document.fileForm.userInputImg.click()
         }
+
+
+
     </script>
 </body>
 

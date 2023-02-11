@@ -96,7 +96,7 @@
                 </div>
                 <ul class="animate" data-animate="fadeInUp" data-duration="1s" data-delay="0s">
                     <li>
-                        <a href="#">
+                        <a href="#" id="idolId" >
                             <img class="mainIdolImgPo" src="https://pbs.twimg.com/media/FFgr7uBVIAAoYYx.jpg:large"
                                 alt="">
                             <div class="name">
@@ -106,7 +106,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="/board/2">
                             <img class="mainIdolImgPo"
                                 src="https://4kwallpapers.com/images/wallpapers/blackpink-pubg-mobile-pink-background-2560x1440-3105.jpg"
                                 alt="">
@@ -222,5 +222,22 @@
     <script src="/js/scrolla.jquery.min.js"></script>
     <script src="/js/slick.min.js"></script>
     <script src="/js/script.js"></script>
+
+<!--
+    <script>
+        const $idoId=document.getElementById('idolId');
+
+        $idolId.onclick=function(){
+
+              fetch('/board/10',{
+                           method:'GET',
+                           headers:{
+
+                           }
+
+        }
+
+    </script>
+  -->
 </body>
 </html>

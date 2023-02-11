@@ -1,6 +1,7 @@
 package com.example.NewJeans.dto.response;
 
 import com.example.NewJeans.entity.Board;
+import com.example.NewJeans.entity.Idol;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
@@ -34,6 +35,10 @@ public class DetailBoardResponseDTO {
 
     private List<CommentResponseDTO> comments;
 
+    private String idolMainImg;
+
+   // private Long idoId;
+
 
     public DetailBoardResponseDTO(Board entity){
 
@@ -45,6 +50,8 @@ public class DetailBoardResponseDTO {
         this.boardCnt=entity.getBoardCnt();
         this.boardLike=entity.getBoardLike();
         this.comments=entity.getComments().stream().map(CommentResponseDTO::new).collect(Collectors.toList());
+        this.idolMainImg=entity.getIdolID().getIdolMainImg();
+        //this.idoId=entity.getIdolID().getIdolID();
 
 
     }
