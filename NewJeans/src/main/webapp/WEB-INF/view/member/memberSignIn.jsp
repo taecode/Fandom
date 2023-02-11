@@ -47,25 +47,17 @@
 <script>
 let flag1=false;
 let flag2=false;
-
-
 const $memEmail=document.getElementById('memEmail');
 const $memEmailRight=document.getElementById('memEmailRight');
 const $memPassword=document.getElementById('memPassword');
 const $memPasswordRight=document.getElementById('memPasswordRight');
-
 const $signUpBtn=document.getElementById('signUpBtn');
 const $loginBtn=document.getElementById('loginBtn');
-
-
-
 $memEmail.onkeyup=function() {
         const emailRegex = /^[a-z0-9\.\-_]+@([a-z0-9\-]+\.)+[a-z]{2,6}$/;
-
         if (!$memEmail.value) {
             $memEmailRight.style.color='red';
             $memEmailRight.innerHTML ='아이디는 필수로 입력해야 합니다.';
-
         }else if (!emailRegex.test($memEmail.value)) {
          $memEmailRight.style.color='red';
               $memEmailRight.innerHTML ='이메일 형식에 맞춰서 입력해 주세요.';
@@ -73,10 +65,7 @@ $memEmail.onkeyup=function() {
             $memEmailRight.innerHTML ='';
             flag1=true;
         }
-
 }
-
-
 $memPassword.onkeyup=function() {
     const pwRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/;
     if (!$memPassword.value) {
@@ -89,9 +78,7 @@ $memPassword.onkeyup=function() {
                 $memPasswordRight.innerHTML = '';
                 flag2=true;
             }
-
 };
-
 $loginBtn.onclick=function(){
     if(flag1 &&flag2){
            const userValue={
@@ -109,7 +96,6 @@ $loginBtn.onclick=function(){
                                        if(result.message){
                                            alert(result.message);
                                        }else{
-
                                            localStorage.setItem('ACCESS_TOKEN',result.token);
                                            localStorage.setItem('LOGIN_USERNAME',result.userName);
                                            window.location.href='/';
@@ -117,9 +103,6 @@ $loginBtn.onclick=function(){
                                    })
    }
 }
-
-
-
 </script>
 </body>
 </html>

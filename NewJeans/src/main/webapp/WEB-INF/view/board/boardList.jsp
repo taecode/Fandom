@@ -21,8 +21,6 @@
     <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/boardList.css">
     <link rel="stylesheet" href="/css/innerPage.css">
-    <link rel="stylesheet" href="/css/animate.min.css">
-
     <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
@@ -238,9 +236,6 @@
                 </div>
         </section>
     </section>
-    <footer>
-        <a href="#top" class="go-top"><span class="lnr lnr-arrow-up"></span></a>
-    </footer>
 
     <script src="/js/jquery-3.3.1.min.js"></script>
     <script src="/js/boardList.js"></script>
@@ -252,40 +247,32 @@
         대충 어케어케 현재 유저 닉네임이든 아이디든 받아서 넣을 수 있도록
         대충 어케어케 게시글 pk 받아서 querySelector로 선택할 수 있도록
         */
-
         let replyInput = document.querySelector(".replyInput");
         let replyBtn = document.querySelector(".replyBtn");
         let commentBox = document.querySelector(".commentBox");
         let commentContainer = document.querySelector(".showComment");
-
         replyInput.addEventListener("keydown", submitEnter);
         replyBtn.addEventListener("click", makeComment);
-
         function submitEnter(event) {
             if (event.keycode === 13) {
                 makeComment();
             }
         }
-
         function makeComment(e) {
             e.preventDefault();
-
             let commentText = replyInput.value;
             let newCommentBox = document.createElement("div");
             let newCommentSet = document.createElement("div");
             let newCommentUser = document.createElement("div")
             let newCommentId = document.createElement("span");
             let newCommentContents = document.createElement("div");
-
             newCommentBox.setAttribute("class", "commentBox");
             newCommentSet.setAttribute("class", "commentSet");
             newCommentUser.setAttribute("class", "commentUser")
             newCommentId.setAttribute("class", "commentId");
             newCommentContents.setAttribute("class", "commentContents");
-
             newCommentId.innerText = "testUser";
             newCommentContents.innerText = commentText;
-
             commentContainer.appendChild(newCommentBox);
             newCommentBox.appendChild(newCommentSet);
             newCommentSet.appendChild(newCommentUser);
@@ -293,11 +280,9 @@
             newCommentSet.appendChild(newCommentContents);
             initInput();
         }
-
         function initInput() {
             replyInput.value = "";
         }
-
     </script>
 </body>
 

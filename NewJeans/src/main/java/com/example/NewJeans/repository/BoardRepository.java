@@ -17,7 +17,7 @@ public interface BoardRepository extends JpaRepository<Board,Long> {
     //List<Board> findByIdolId(@Param("idol") Long idolId);
     Page<Board> findByIdolId(@Param("idol") Long idolId, Pageable pageable);
 
-    List<Board> findByIdolContaining(Long idol, Pageable pageable);
+   /// List<Board> findByIdolContaining(Long idol, Pageable pageable);
 
 
 //    @Modifying
