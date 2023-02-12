@@ -10,6 +10,7 @@ import com.example.NewJeans.entity.Idol;
 import com.example.NewJeans.repository.BoardRepository;
 import com.example.NewJeans.repository.IdolRepository;
 import com.example.NewJeans.repository.MemberRepository;
+import com.example.NewJeans.utils.FileUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -31,6 +32,8 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
     private final IdolRepository idolRepository;
+    private static final String IMAGE_PATH="E:\\image";
+
 
     //게시판 목록 조회  페이징 처리 필요
     @Transactional
@@ -38,12 +41,8 @@ public class BoardService {
 
         Page<Board> listBoards = boardRepository.findByIdolId(idolId,pageable);
 
-       // List<Board> boardList = boardRepository.findByIdolContaining(idolId, pageable);
-
         //페이징처리
-
         //Page<Board> pageBoards = boardRepository.findAll(PageRequest.of(page - 1, size,Sort.by(sort).descending()));
-
         //List<Board> listBoards= pageBoards.getContent();
 
         List<DetailBoardResponseDTO> dtoList = listBoards.stream()
@@ -61,10 +60,15 @@ public class BoardService {
     public Long create(final CreateBoardRequestDTO createRequestDTO, final Long idolId )
         throws RuntimeException
     {
+        //파일 -> 경로
+        String boardFile= FileUtils.uploadFile(createRequestDTO.getBoardImg(),IMAGE_PATH);
+        createRequestDTO.setBoardFile(boardFile);
+
         Idol idol=new Idol();
         idol.setIdolID(idolId);
 
         Board board=createRequestDTO.toEntity();
+        board.setBoardFile(board.getBoardFile());
         board.setIdolID(idol);
         board.setIdol(idolId);
         board.setMemNickName(board.getMemNickName()); //작성자 닉네임
@@ -105,8 +109,6 @@ public class BoardService {
 
     }
 
-
-    //게시물 조회수
 
 
 }

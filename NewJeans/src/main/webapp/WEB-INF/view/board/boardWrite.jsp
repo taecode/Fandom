@@ -30,7 +30,7 @@
     <section id="container">
         <div id="main_container">
             <div class="post_form_container">
-                <form action="#" class="post_form" id="fileForm" name="fileForm">
+                <form action="/board/${idolId}" method="post" class="post_form" id="fileForm" name="fileForm" enctype="multipart/form-data">
                     <div class="title">
                         NEW POST
                     </div>
@@ -79,6 +79,8 @@
         function inputTagClick() {
             document.fileForm.userInputImg.click()
         }
+
+
 
 
 

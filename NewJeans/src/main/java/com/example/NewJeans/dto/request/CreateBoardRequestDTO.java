@@ -3,6 +3,7 @@ package com.example.NewJeans.dto.request;
 import com.example.NewJeans.entity.Board;
 import com.example.NewJeans.entity.Idol;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
 
@@ -18,6 +19,8 @@ public class CreateBoardRequestDTO {
     private String boardContent;
 
     private String boardFile;
+
+    private MultipartFile boardImg;
 
     private String memNickName;  //필요없음
 

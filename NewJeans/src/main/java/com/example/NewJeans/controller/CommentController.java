@@ -59,7 +59,7 @@ public class CommentController {
     }
 
 
-    //댓글 보기
+    //댓글 보기  (댓글 창 클릭하면 댓글 보이게)
     @GetMapping("{idol-id}/{board-id}")
     public List<Comment> retrieveCommentList(
             Model model,

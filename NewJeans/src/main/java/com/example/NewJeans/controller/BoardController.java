@@ -19,9 +19,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -32,8 +34,7 @@ public class BoardController {
     private final BoardService boardService;
 
 
-
-    //게시글 조회
+    //게시글 조회  (무한스크롤 필요)
     @GetMapping("/{idol-id}")   //아이돌 번호에 따라 페이징
     public String retrieveBoardList(
             Model model,
@@ -43,18 +44,23 @@ public class BoardController {
 
     )
     {
-
         log.info("/board/{} Get request!",idolId);
         ListBoardResponseDTO listBoardResponseDTO = boardService.retrieve(idolId,pageable);
         model.addAttribute("ListBoardResponseDTO", listBoardResponseDTO);
         model.addAttribute("IdolId",idolId);
         return "board/boardList";
-
     }
 
     //게시글 작성 폼으로
     @GetMapping("/{idol-id}/boardWrite")
-    public String boardWrite() {return "board/boardWrite";}
+    public String boardWrite(
+            Model model,
+            @PathVariable("idol-id") Long idolId
+    )
+    {
+        model.addAttribute("idolId",idolId);
+        return "board/boardWrite";
+    }
 
 
     //게시글 등록 요청    (파일 업로드 추가 필요)
@@ -77,10 +83,9 @@ public class BoardController {
         }
 
         try {
-            boardService.create(requestDTO,idolId);
             Long idol=boardService.create(requestDTO,idolId);
             redirectAttributes.addAttribute("idol",idol);
-            return "redirect:/{idol}"; //게시판 페이지로 리다이렉트
+            return "redirect:/board/{idol}"; //게시판 페이지로 리다이렉트
 
         } catch (RuntimeException e) {
             log.error(e.getMessage());
@@ -93,7 +98,7 @@ public class BoardController {
 
 
     //게시글 삭제 요청    (작성자 OR 관리자일 경우만 삭제)
-    @DeleteMapping("/{idol-id}/{board-id}")
+    @GetMapping("/{idol-id}/{board-id}")
     public String deleteBoard(
             Model model,
             //@AuthenticationPrincipal Long memId,
@@ -109,7 +114,7 @@ public class BoardController {
 
         try {
             boardService.delete(boardId,idolId); //memId
-            return "redirect:/"; //게시판 페이지
+            return "redirect:/board/{idol-id}"; //게시판 페이지
 
         } catch (Exception e) {
             log.warn("게시글 삭제 에러 : {}", e.getMessage());

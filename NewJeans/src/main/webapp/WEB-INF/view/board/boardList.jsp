@@ -38,7 +38,7 @@
         <section id="main_container">
             <div class="inner">
                 <div class="contents_box">
-                    <!-- Article =============================================== -->
+                 <!-- Article =============================================== -->
                  <c:forEach var="board" items="${ListBoardResponseDTO.boards}">
                     <article class="contents">
                         <div class="top">
@@ -56,7 +56,6 @@
                         <div class="img_section">
                             <div class="trans_inner">
                                 <div>${board.boardContent}</div>
-
                         </div>
 
                         <div class="bottom_icons">
@@ -65,8 +64,8 @@
                                     <span>${board.boardContent}</span>
                                     <span class="lnr lnr-pencil"></span>
                                 </div>
-                                <div class="heart_btn">
-                                    <span class="lnr lnr-trash"></span>
+                                <div class="heart_btn" id="trash2" value="${board.boardId}">
+                                    <span class="lnr lnr-trash" id="trash" ></span>
                                 </div>
                             </div>
                         </div>
@@ -87,11 +86,11 @@
 
                         <div class="comment_field" id="add-comment-post37">
                             <div class="replyComment">
-                                <form class="replyForm" action="">
+                             <button id="inputButton" class="replyBtn">댓글</button>
+                                <form class="replyForm" action="" style="display:none">
                                     <input class="replyInput" type="text" placeholder="댓글달기...">
                                     <div class="upload_btn m_text" data-name="comment"
                                         onclick="javascript:commentUpload()">게시</div>
-                                    <button id="inputButton" class="replyBtn" style="display: none;"></button>
                                 </form>
                             </div>
                         </div>
@@ -103,7 +102,7 @@
 
                     <!-- Side Box============================================== -->
                     <div class="side_box">
-                        <div class="user_profile">
+                        <div class="user_profile" " >
                             <div class="profile_thumb">
                                 <img src="/img/userProfile.png" alt="프로필사진">
                             </div>
@@ -138,8 +137,13 @@
         */
         let replyInput = document.querySelector(".replyInput");
         let replyBtn = document.querySelector(".replyBtn");
+        let replyForm = document.querySelector(".replyForm");
         let commentBox = document.querySelector(".commentBox");
         let commentContainer = document.querySelector(".showComment");
+        let trash=document.querySelector("#trash");
+
+
+
         replyInput.addEventListener("keydown", submitEnter);
         replyBtn.addEventListener("click", makeComment);
         function submitEnter(event) {
@@ -172,6 +176,28 @@
         function initInput() {
             replyInput.value = "";
         }
+
+
+        replyBtn.onclick=function(){
+
+            replyForm.style.display='block';
+
+        }
+
+        let idolId='${IdolId}';
+        let boardId=$("#trash2").attr("value");
+
+        trash.onclick=function(){
+                    var chk = confirm("정말 삭제하시겠습니까?");
+                    if (chk) {
+                     location.href='/board/'+idolId+'/'+boardId
+                      }
+
+        }
+
+
+
+
     </script>
 </body>
 

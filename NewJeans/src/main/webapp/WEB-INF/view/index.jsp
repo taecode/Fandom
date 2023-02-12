@@ -106,7 +106,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/board/2">
+                        <a href="/board/1">
                             <img class="mainIdolImgPo"
                                 src="https://4kwallpapers.com/images/wallpapers/blackpink-pubg-mobile-pink-background-2560x1440-3105.jpg"
                                 alt="">
